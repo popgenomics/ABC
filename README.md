@@ -70,7 +70,7 @@ for i in $(seq 1 1 100); do
 	echo "mkdir SI_2N_${i}; cd SI_2N_${i}; cp ../bpfile .; priorgen.py SI_2N 10000 | msnsam tbs 1000000 -t tbs -r tbs tbs -I 2 tbs tbs 0 -n 1 tbs -n 2 tbs -ej tbs 2 1 -eN tbs tbs | mscalc.py"  
 done  
   
-You can now all the printed command by using the job manager used of your cluster (i.e: slurm, SGE, ... ).  
+You are now ready to submit the printed command by using the job manager used of your cluster (i.e: slurm, SGE, ... ).  
 
 
 	
