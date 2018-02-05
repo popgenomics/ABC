@@ -1,7 +1,7 @@
 # simple pipeline to perform simulations for downstream ABC analysis  
 ## requirement:  
 ### python:  
-Be sure that you have *python* and *pypy* in your /usr/bin directory  
+Be sure that you have **python** and *pypy* in your /usr/bin directory  
 The pipeline also works with only the standard _python_ interpreter, but is much slower.  
 Comparison using the _time_ command for the simulation of _1,000_ multilocus datsets of _100_ loci:  
 _pypy_ : real = 1m34.698s   
