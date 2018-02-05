@@ -1,6 +1,13 @@
 # simple pipeline to perform simulations for downstream ABC analysis  
+## output:  
+produces two tables:  
+**ABCstat.txt** : one line per multilocus simulation, one column per computed summary statistic.  
+**priorfile.txt**: one line per multilocus simulation, one oclumn per model statistic  
+
 ## requirement:  
 ### python:  
+The used coalescent simulator is **msnsam** made by Jeffrey Ross-Ibarra from original **ms** coded by Richard Hudson.  
+In the subdirectory msnsam, just type **./clms** to install the simulator, and put it in your *bin/*  
 Be sure that you have **python** and **pypy** in your /usr/bin directory  
 The pipeline also works with only the standard **python** interpreter, but is much slower.  
 Comparison using the **time** command for the simulation of **1,000** multilocus datsets of **100** loci:  
@@ -17,6 +24,17 @@ SI = **S**trict **I**solation model (split of an ancestral population in two iso
 AM = **A**ncient **M**igration model. Like SI, but with migration between daughter populations between the time of spli **Tsplit** and **Tam**. There is then no migration between **Tam** and the present time.  
 SC = **S**econdary **C**ontact model. Like SI, but with no migration between daughter populations between the time of split **Tsplit** and **Tsc**. There is then a secondary contact with continuous migration between **Tsc** and the present time.  
 IM = **I**solation with **M**igration model. Like SI but with gene flow between **Tsplit** and the present time.  
+  
+Each model SI, AM, SC and IM has its own *msnsam* command line. You can get them by simply typing *./priorgen.py**  
+        **#SI**  
+        msnsam tbs ${nsim} -t tbs -r tbs tbs -I 2 tbs tbs 0 -n 1 tbs -n 2 tbs -ej tbs 2 1 -eN tbs tbs  
+        **#AM**  
+        msnsam tbs ${nsim} -t tbs -r tbs tbs -I 2 tbs tbs 0 -n 1 tbs -n 2 tbs -ema tbs 2 0 tbs tbs 0 -ej tbs 2 1 -eN tbs tbs  
+        **#IM**  
+        msnsam tbs ${nsim} -t tbs -r tbs tbs -I 2 tbs tbs 0 -n 1 tbs -n 2 tbs -m 1 2 tbs -m 2 1 tbs -ej tbs 2 1 -eN tbs tbs  
+        **#SC**  
+        msnsam tbs ${nsim} -t tbs -r tbs tbs -I 2 tbs tbs 0 -m 1 2 tbs -m 2 1 tbs -n 1 tbs -n 2 tbs -eM tbs 0 -ej tbs 2 1 -eN tbs tbs  
+where ${nsim} is an integer value corresponding to : the number of loci (100 in the example) and the number of targeted simulated multilocus datasets (1,000 in the example).  
 
 ### submodels:  
 Two models of effective population size  (**Ne**):  
