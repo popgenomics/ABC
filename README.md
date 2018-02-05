@@ -19,7 +19,8 @@ Comparison using the **time** command for the simulation of **1,000** multilocus
 If you do not have **pypy** installed and still want to use this pipeline despite the extra computation time, you just have to change the first line of **mscalc.py** by replacing **#!/usr/ bin/pypy** by **#!/usr/bin/python**  
   
 You can link **mscalc.py** and **priorgen.py** to your /usr/bin/ directory.  
-
+  
+Importantly:  **adapt the first line of mscalc.py and priorgen.py to your own python interpreter. For the majority of cases, it will be: #!/usr/bin/pypy for mscalc.py and #!/usr/bin/python for priorgen.py, but please, check before**  
 Finaly, **priorgen.py** imports the **numpy** library.  
   
 ## models: 
@@ -47,6 +48,16 @@ Two models of effective population size  (**Ne**):
   
 1M = all loci share the same migration rate **M**.  
 2M = two categories of loci with a neutral **M** (>0) or loci linked to species barriers (**M=0**).  
+  
+## prior distribution:  
+For lazy reasons, boundaries for the prior of each parameter are hard-coded in the **priorgen.py** file (line 25)  
+N_bound = [0, 5] # bounds of the prior for the effective size for all 3 populations  
+T_bound = [0, 4] # prior for the time of split  
+M_bound = [0, 4] # prior for the migration rate M (=4.N.m where m is the proportion of individuals made by migrants per generations)  
+P_ntrl_M_bound = [0, 1] # ntrl_M loci with M >0; (1-ntrl_M) loci with M=0  
+P_ntrl_N_bound = [0.5, 1] # ntrl_N loci with N and (1-ntrl_N) with bf.N  
+bf_bound = [0, 1] # reduction in Ne for the (1-ntrl_N)  
+They can be easily edited by users.  
   
 ## bpfile:  
 informations about loci are required in a file named _bpfile_. Its structure is simple:  
