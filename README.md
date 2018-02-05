@@ -1,13 +1,15 @@
 # simple pipeline to perform simulations for downstream ABC analysis  
 ## output:  
-produces two tables:  
+The pipeline produces two tables:  
 **ABCstat.txt** : one line per multilocus simulation, one column per computed summary statistic.  
 **priorfile.txt**: one line per multilocus simulation, one column per model statistic  
 
 ## requirement:  
-### python:  
+### coalescent simulator:  
 The used coalescent simulator is **msnsam** made by Jeffrey Ross-Ibarra from original **ms** coded by Richard Hudson.  
 In the subdirectory msnsam, just type **./clms** to install the simulator, and put it in your *bin/*  
+  
+### python:  
 Be sure that you have **python** and **pypy** in your /usr/bin directory  
 The pipeline also works with only the standard **python** interpreter, but is much slower.  
 Comparison using the **time** command for the simulation of **1,000** multilocus datsets of **100** loci:  
@@ -16,6 +18,8 @@ Comparison using the **time** command for the simulation of **1,000** multilocus
   
 If you do not have **pypy** installed and still want to use this pipeline despite the extra computation time, you just have to change the first line of **mscalc.py** by replacing **#!/usr/ bin/pypy** by **#!/usr/bin/python**  
   
+You can link **mscalc.py** and **priorgen.py** to your /usr/bin/ directory.  
+
 Finaly, **priorgen.py** imports the **numpy** library.  
   
 ## models: 
@@ -63,7 +67,7 @@ model: SI with 2Ne
 **priorgen.py** and **mscalc.py** are assumed to be linked in your /usr/bin  
 Because 1 million of simulations can take a while, and thanks to a cluster of CPUs, 100 set of 10,000 simulations can run in parallele as following:  
 for i in $(seq 1 1 100); do  
-	echo "mkdir SI_2N_${i}; cd SI_2N_${i}; priorgen.py SI_2N 10000 | msnsam tbs 1000000 -t tbs -r tbs tbs -I 2 tbs tbs 0 -n 1 tbs -n 2 tbs -ej tbs 2 1 -eN tbs tbs | mscalc.py"  
+	echo "mkdir SI_2N_${i}; cd SI_2N_${i}; cp ../bpfile .; priorgen.py SI_2N 10000 | msnsam tbs 1000000 -t tbs -r tbs tbs -I 2 tbs tbs 0 -n 1 tbs -n 2 tbs -ej tbs 2 1 -eN tbs tbs | mscalc.py"  
 done  
 
 
