@@ -235,7 +235,7 @@ def computeStats(locus, outfile):
 	posStart = ''
 	posEnd = ''
 	locusName = locus.split('_')
-	locusName = locusName[2] + '_' + locusName[3] + '_' + locusName[4]
+	locusName = locusName[2] + '_' + locusName[3]# + '_' + locusName[4]
 	
 	if os.path.isfile(bpfile) == False:
 		sys.exit("\n\t\033[1;31;40mERROR: {0} was not found\n\033[0m\n".format(bpfile))
@@ -309,6 +309,8 @@ def computeStats(locus, outfile):
 		if test == 1:
 			if segsites == 0:
 				test = 0
+				posStart = 0
+				posEnd = 0
 				sf.append(0)
 				sxA.append(0)
 				sxB.append(0)
@@ -335,7 +337,7 @@ def computeStats(locus, outfile):
 					posEnd = tmp[-1]
 				if "positions" not in line and line!="\n":
 					nSam_cnt += 1
-					Llocus = L[nLoci_cnt - 1] 
+					locus = L[nLoci_cnt - 1] 
 					if nSam_cnt <= nSamA[nLoci_cnt - 1]:
 						spA.append(line.strip())
 					if nSam_cnt > nSamA[nLoci_cnt - 1] and nSam_cnt <= (nSamA[nLoci_cnt - 1] + nSamB[nLoci_cnt - 1]):
@@ -444,7 +446,7 @@ def computeStats(locus, outfile):
 			pearson_r_netDiv_FST = cr_pearsonR(netdivAB, FST)
 			
 			#print("dataset {0}: {1} loci".format(nSim_cnt-1, len(ss)))
-			res = "{0}\t{1}\t{2}\t{3}\t{4}".format(contigName, posStart, posEnd, locusName, Llocus) # contig\tposStart\tposEnd\tname\tlength
+			res = "{0}\t{1}\t{2}\t{3}\t{4}".format(contigName, posStart, posEnd, locusName, locus) # contig\tposStart\tposEnd\tname\tlength
 			res += "{0}\t{1:.5f}\t{2:.5f}\t".format(nSim_cnt-1, bialsites_avg, bialsites_std)
 			res += "{0:.5f}\t{1:.5f}\t".format(sf_avg, sf_std)
 			res += "{0:.5f}\t{1:.5f}\t".format(sxA_avg, sxA_std)
