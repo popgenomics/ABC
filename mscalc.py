@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/gepv/home2/croux/bin/pypy
 
-## #!/home/roux/scratch/pypy-packages/bin/pypy
+## #!/usr/bin/python
+
 
 # ##!/usr/bin/pypy
 import os
@@ -355,10 +356,10 @@ for line in sys.stdin: # read the ms's output from the stdin
 					piB.append(tmpB['pi']/L[nLoci_cnt - 1])
 					
 					tmp = sites(freqA, freqB, segsites) # determines the # of sxA, sxB, ss, sf
-					sf.append(tmp['sf'])
-					sxA.append(tmp['sxA'])
-					sxB.append(tmp['sxB'])
-					ss.append(tmp['ss'])
+					sf.append(tmp['sf']/(1.0*L[nLoci_cnt - 1]))
+					sxA.append(tmp['sxA']/(1.0*L[nLoci_cnt - 1]))
+					sxB.append(tmp['sxB']/(1.0*L[nLoci_cnt - 1]))
+					ss.append(tmp['ss']/(1.0*L[nLoci_cnt - 1]))
 					successive_ss.append(tmp['successive_ss'])
 					# test if loci has both ss, sf, or only one of two, etc ...
 					if tmp['sf'] > 0:
@@ -474,7 +475,8 @@ for line in sys.stdin: # read the ms's output from the stdin
 		res += "{0:.5f}\t".format(pearson_r_div_netDiv)
 		res += "{0:.5f}\t".format(pearson_r_div_FST)
 		res += "{0:.5f}\t".format(pearson_r_netDiv_FST)
-		res += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}".format(ss_sf, ss_noSf, noSs_sf, noSs_noSf)
+		#res += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}".format(ss_sf, ss_noSf, noSs_sf, noSs_noSf) # total number of ss_sf, ss_noSf and noSs_sf noSs_noSf loci
+		res += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}".format(ss_sf/(1.0*nLoci), ss_noSf/(1.0*nLoci), noSs_sf/(1.0*nLoci), noSs_noSf/(1.0*nLoci)) # proportion of ss_sf, ss_noSf, etc ... loci
 		res += "\n"
 		outfile.write(res)
 infile.close()
