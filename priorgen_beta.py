@@ -23,10 +23,9 @@ if len(sys.argv) != 3:
 
 # Configuration of the prior distribution
 nMultilocus = int(sys.argv[2])
-N_bound = [0, 5]
-T_bound = [0, 4]
-M_bound = [0, 4]
-bf_bound = [0, 1] # reduction in Ne for the (1-ntrl_N)
+N_bound = [0, 50]
+T_bound = [0, 50]
+M_bound = [0, 40]
 shape_bound = [0.01, 50]
 
 # read bpfile
@@ -106,7 +105,7 @@ if sys.argv[1] == "SC_1M_2N":
 	for sim in range(nMultilocus):
 		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tsc[sim], M12[sim], M21[sim])
 		# vectors of size 'nLoci' containing parameters
-		scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+		scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
 		N1_vec = [ N1[sim]*i for i in scalar_N ]
 		N2_vec = [ N2[sim]*i for i in scalar_N ]
 		Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -189,9 +188,9 @@ if sys.argv[1] == "SC_2M_2N":
 	# param monolocus: values that will be read by ms
 	priorfile = "N1\tN2\tNa\tshape_N_a\tshape_N_b\tTsplit\tTsc\tM12\tshape_M12_a\tshape_M12_b\tM21\tshape_M21_a\tshape_M21_b\n"
 	for sim in range(nMultilocus):
-		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\t{10:.5f}\t{11:.5f}\t{12:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tsc[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim, M21[sim], shape_M21_a[sim], shape_M21_b[sim])
+		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\t{10:.5f}\t{11:.5f}\t{12:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tsc[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim], M21[sim], shape_M21_a[sim], shape_M21_b[sim])
 		# vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -269,7 +268,7 @@ if sys.argv[1] == "AM_1M_2N":
 	for sim in range(nMultilocus):
 		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tam[sim], M12[sim], M21[sim])
 		# vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -354,7 +353,7 @@ if sys.argv[1] == "AM_2M_2N":
 	for sim in range(nMultilocus):
 		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\t{10:.5f}\t{11:.5f}\t{12:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tam[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim], M21[sim], shape_M21_a[sim], shape_M21_b[sim])
 		# vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -427,7 +426,7 @@ if sys.argv[1] == "IM_1M_2N":
 	for sim in range(nMultilocus):
 		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], M12[sim], M21[sim])
 		# vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -466,7 +465,7 @@ if sys.argv[1] == "IM_2M_1N":
 	# param monolocus: values that will be read by ms
 	priorfile = "N1\tN2\tNa\tTsplit\tM12\tshape_M12_a\tshape_M12_b\tM21\tshape_M21_a\tshape_M21_b\n"
 	for sim in range(nMultilocus):
-		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\n".format(N1[sim], N2[sim], Na[sim], Tsplit[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim, M21[sim], shape_M21_a[sim], shape_M21_b[sim])
+		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\n".format(N1[sim], N2[sim], Na[sim], Tsplit[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim], M21[sim], shape_M21_a[sim], shape_M21_b[sim])
 		
 		# vectors of size 'nLoci' containing parameters
                 scalar_M12 = beta(shape_M12_a[sim], shape_M12_b[sim], size = nLoci)
@@ -515,7 +514,7 @@ if sys.argv[1] == "IM_2M_2N":
 	for sim in range(nMultilocus):
 		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\t{10:.5f}\t{11:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim], M21[sim], shape_M21_a[sim], shape_M21_b[sim])
 		# vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -581,7 +580,7 @@ if sys.argv[1] == "SI_2N":
 	for sim in range(nMultilocus):
 		priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim])
 		# vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -631,7 +630,7 @@ if sys.argv[1] == "PSC_2M_2N":
         for sim in range(nMultilocus):
                 priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3:.5f}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9:.5f}\t{10:.5f}\t{11:.5f}\t{12:.5f}\t{13:.5f}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tmig[sim], Tiso[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim], M21[sim], shape_M21_a[sim], shape_M21_b[sim])
                 # vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
@@ -685,7 +684,7 @@ if sys.argv[1] == "PAM_2M_2N":
         for sim in range(nMultilocus):
                 priorfile += "{0:.5f}\t{1:.5f}\t{2:.5f}\t{3}\t{4:.5f}\t{5:.5f}\t{6:.5f}\t{7:.5f}\t{8:.5f}\t{9}\t{10:.5f}\t{11}\n".format(N1[sim], N2[sim], Na[sim], shape_N_a[sim], shape_N_b[sim], Tsplit[sim], Tmig[sim], Tiso[sim], M12[sim], shape_M12_a[sim], shape_M12_b[sim], M21[sim], shape_M21_a[sim], shape_M21_b[sim])
                 # vectors of size 'nLoci' containing parameters
-                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=range(nLoci))
+                scalar_N = beta(shape_N_a[sim], shape_N_b[sim], size=nLoci)
                 N1_vec = [ N1[sim]*i for i in scalar_N ]
                 N2_vec = [ N2[sim]*i for i in scalar_N ]
                 Na_vec = [ Na[sim]*i for i in scalar_N ]
